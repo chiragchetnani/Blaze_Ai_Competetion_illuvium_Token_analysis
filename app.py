@@ -364,20 +364,15 @@ def main():
     # Streamlit app
     st.markdown('## Iluvium Price, Market Cap, and Volume Over Time')
 
-    # Plotting all three columns in a single plot
-    fig, ax = plt.subplots(figsize=(12, 8))
-
-    ax.plot(illuvium_df['Time'], illuvium_df['prices'], label='Price', marker='o')
-    ax.plot(illuvium_df['Time'], illuvium_df['MCap'], label='Market Cap', marker='o')
-    ax.plot(illuvium_df['Time'], illuvium_df['Volume'], label='Volume', marker='o')
-
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Values')
-    ax.legend()
     st.markdown(ilv_price_mcap)
+    # Plotting all three columns in a single plot
+    # st.subheader('Line Plot for ILV')
 
-    # Display the plot using Streamlit
-    st.pyplot(fig)
+    # Create a line plot using Plotly Express
+    fig = px.line(illuvium_df, x='Time', y=['prices', 'MCap', 'Volume'], markers=True, labels={'value': 'Values'}, title='ILV Line Plot')
+
+    # Display the plot in Streamlit
+    st.plotly_chart(fig)
 
     st.markdown('## Historical In/Out of the Money')
     # Convert DateTime to datetime format
@@ -451,9 +446,7 @@ def main():
     # Streamlit app
     st.markdown('## Ethereum vs Iluvium Prices Over Time')
 
-    # Plotting the data
     fig, ax = plt.subplots(figsize=(10, 6))
-
     ax.plot(eth['Date'], eth['Price'], label='Ethereum', marker='o')
     ax.plot(illuvium_df['Time'], illuvium_df['prices'], label='Iluvium', marker='o')
 
@@ -463,8 +456,12 @@ def main():
     ax.set_title('Ethereum vs Iluvium Prices Over Time')
     ax.legend()
 
+    # Set the background color of the plot
+    # You can change the color code as needed
+
     # Display the plot using Streamlit
     st.pyplot(fig)
+        
     st.markdown(etherum_)
     
     sns.set(style="whitegrid")  # Set the style to whitegrid for streamline appearance
